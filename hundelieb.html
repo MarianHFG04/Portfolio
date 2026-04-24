@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hundelieb – App Redesign · Marian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F6F3;
+      --surface: #FFFFFF;
+      --text: #1A1A18;
+      --text-muted: #6B6B66;
+      --text-faint: #A8A8A2;
+      --border: rgba(26,26,24,0.10);
+      --border-strong: rgba(26,26,24,0.18);
+      --tag-bg: rgba(26,26,24,0.06);
+      --radius: 3px;
+      --radius-lg: 6px;
+      --accent: #8E9E5F;
+      --accent-light: #f0f3e8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(247,246,243,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    /* LAYOUT */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* HERO */
+    .cs-hero {
+      padding-top: 120px;
+      padding-bottom: 72px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cs-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .cs-title {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .cs-subtitle {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 32px;
+    }
+
+    .cs-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {}
+    .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 4px;
+    }
+    .meta-value {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* SECTION */
+    .cs-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cs-section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-heading {
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .section-text {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 600px;
+    }
+
+    .section-text + .section-text { margin-top: 14px; }
+
+    /* INSIGHT CARDS */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .insight-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .insight-card h4 {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .insight-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* PROCESS STEPS */
+    .process-list {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .process-step:first-child { border-top: 1px solid var(--border); }
+
+    .step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-faint);
+      padding-top: 2px;
+    }
+
+    .step-content h4 {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* QUOTE */
+    .cs-quote {
+      border-left: 2px solid var(--accent);
+      padding: 4px 0 4px 20px;
+      margin: 28px 0;
+    }
+
+    .cs-quote p {
+      font-size: 16px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* HMW PILLS */
+    .hmw-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .hmw-pill {
+      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-strong);
+      color: var(--text-muted);
+      background: var(--surface);
+      line-height: 1.4;
+    }
+
+    /* RESULT GRID */
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .result-card {
+      background: var(--accent-light);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .result-card h4 {
+      font-size: 13px;
+      font-weight: 500;
+      color: #3d4f1e;
+      margin-bottom: 6px;
+    }
+
+    .result-card p {
+      font-size: 13px;
+      color: #5a6e35;
+      line-height: 1.6;
+    }
+
+    /* IMAGE PLACEHOLDER */
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .img-placeholder span {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-faint);
+      letter-spacing: 0.08em;
+    }
+
+    .img-caption {
+      font-size: 12px;
+      color: var(--text-faint);
+      margin-top: 8px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+    }
+
+    /* VALUE PROP */
+    .vp-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-top: 20px;
+    }
+
+    .vp-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-faint);
+      margin-bottom: 8px;
+    }
+
+    .vp-text {
+      font-size: 18px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    /* TAGS */
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      padding: 3px 8px;
+      border-radius: var(--radius);
+      background: var(--tag-bg);
+      color: var(--text-muted);
+    }
+
+    /* NEXT PROJECT */
+    .next-project {
+      padding: 48px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .next-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .next-title {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .next-title:hover { opacity: 0.5; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-faint);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    @media (max-width: 640px) {
+      nav, main, footer { padding-left: 24px; padding-right: 24px; }
+      .insight-grid, .result-grid { grid-template-columns: 1fr; }
+      .cs-meta { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">marian</a>
+  <a class="nav-back" href="index.html#projekte">← Zurück zu Projekten</a>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="cs-hero">
+    <p class="cs-eyebrow">01 · App Redesign</p>
+    <h1 class="cs-title">Hundelieb</h1>
+    <p class="cs-subtitle">
+      Redesign einer community-basierten App, die Hundebesitzer:innen und Hundefreunde miteinander vernetzt –
+      mit Fokus auf Vertrauen, Transparenz und einem stärkeren Gemeinschaftsgefühl.
+    </p>
+    <div class="cs-meta">
+      <div class="meta-item">
+        <div class="meta-label">Kontext</div>
+        <div class="meta-value">Hochschulprojekt · IG 3, WiSe 25/26</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Rolle</div>
+        <div class="meta-value">UX Research, UI Design, Prototyping</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">Marian Roth, Julia Tischler, Klara Bühr</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Tools</div>
+        <div class="meta-value">Figma</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUSGANGSLAGE -->
+  <div class="cs-section">
+    <p class="section-label">Ausgangslage</p>
+    <h2 class="section-heading">Was stimmte an der bestehenden App nicht?</h2>
+    <p class="section-text">
+      Hundelieb verbindet Hundebesitzer:innen mit Hundefreunden – Menschen, die Zeit mit Hunden verbringen möchten,
+      ohne selbst einen zu halten. Das Konzept ist stark, doch die App hatte deutliche Schwächen in Usability und Vertrauen.
+    </p>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h4>Überladene Navigation</h4>
+        <p>Zu viele Navigationspunkte mit nicht selbst-erklärenden Icons erzeugten Orientierungsprobleme.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Informationsarme Profile</h4>
+        <p>Profile zeigten kaum Infos über die Menschen hinter den Hunden – Vertrauen konnte so nicht entstehen.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Schwache Kontraste</h4>
+        <p>Helle Pastelltöne führten zu geringem Kontrast zwischen Text, Icons und Hintergrund.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Kaum genutzte Community</h4>
+        <p>Die Hunde-Posts boten wenig Mehrwert und zeigten Inhalte unabhängig von Filtern oder Follows.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="cs-section">
+    <p class="section-label">Research</p>
+    <h2 class="section-heading">Was brauchen die Nutzer:innen wirklich?</h2>
+    <p class="section-text">
+      Wir führten qualitative Interviews und eine Online-Umfrage mit beiden Nutzergruppen durch:
+      Hundefreunden, die auf fremde Hunde aufpassen möchten, und Hundebesitzer:innen, die Unterstützung suchen.
+    </p>
+
+    <div class="cs-quote">
+      <p>„Bevor ich meinen Hund jemandem anvertraue, muss ich die Person persönlich kennenlernen und echtes Vertrauen aufbauen."</p>
+    </div>
+
+    <p class="section-text">
+      Die zentralen Erkenntnisse: Vertrauen und Transparenz sind die Grundvoraussetzungen für die App-Nutzung.
+      Profile müssen nicht nur den Hund, sondern auch den Menschen dahinter zeigen.
+      Außerdem besteht der Wunsch nach echter Gemeinschaft – nicht nur Vermittlung.
+    </p>
+
+    <div class="tag-row">
+      <span class="tag">User Interviews</span>
+      <span class="tag">Online-Umfrage</span>
+      <span class="tag">Personas</span>
+      <span class="tag">Use Cases</span>
+      <span class="tag">Value Proposition Canvas</span>
+    </div>
+  </div>
+
+  <!-- IDEATION -->
+  <div class="cs-section">
+    <p class="section-label">Ideation</p>
+    <h2 class="section-heading">Von Insights zu Designentscheidungen</h2>
+    <p class="section-text">
+      Auf Basis der Nutzererkenntnisse formulierten wir eine neue Value Proposition und
+      konkrete „How might we"-Fragen, die den Fokus des Redesigns definierten.
+    </p>
+
+    <div class="vp-box">
+      <div class="vp-label">Neue Value Proposition</div>
+      <p class="vp-text">„Wir bringen Menschen zusammen, die Hunde lieben. Nicht für Geld, sondern aus Herz."</p>
+    </div>
+
+    <div class="hmw-list">
+      <span class="hmw-pill">Wie können wir Vertrauen zwischen Besitzer:innen und Hundefreunden schaffen?</span>
+      <span class="hmw-pill">Wie können wir einen Best-Fit sicherstellen?</span>
+      <span class="hmw-pill">Wie können wir Wissen über Hunde vermitteln?</span>
+      <span class="hmw-pill">Wie können wir Terminorganisation ermöglichen?</span>
+    </div>
+
+    <p class="section-text" style="margin-top: 20px;">
+      Mit der Crazy-Eight-Methode skizzierten wir Lösungsansätze zu jeder Frage.
+      Daraus leiteten wir vier Designprinzipien ab: Verbindung & Wohlbefinden,
+      Vertrauensvoll & verlässlich, Neugierig & spielerisch sowie Zusammenhalt.
+    </p>
+
+    <div class="process-list">
+      <div class="process-step">
+        <span class="step-num">01</span>
+        <div class="step-content">
+          <h4>Wireframes & Informationsarchitektur</h4>
+          <p>Grundaufbau und Platzierung der Funktionen festgelegt. Navigation von 5+ Punkten auf 4 klare Bereiche reduziert.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">02</span>
+        <div class="step-content">
+          <h4>Screenflow</h4>
+          <p>Logische Verbindung aller Screens definiert – vom Feed über Forum bis Messaging – für eine nahtlose Nutzerführung.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">03</span>
+        <div class="step-content">
+          <h4>Designprinzipien & Moodboard</h4>
+          <p>Adjektive der Personas wurden geclustert und in vier Designprinzipien überführt, die alle Gestaltungsentscheidungen leiteten.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <span class="step-num">04</span>
+        <div class="step-content">
+          <h4>3D-Iconset als spielerisches Element</h4>
+          <p>Das spielerische Designprinzip wurde durch ein eigenes 3D-Iconset umgesetzt. Farblich codierte Icons heben Primärfunktionen hervor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ERGEBNIS -->
+  <div class="cs-section">
+    <p class="section-label">Ergebnis</p>
+    <h2 class="section-heading">Das redesignte Hundelieb</h2>
+    <p class="section-text">
+      Das neue Design adressiert die zentralen Probleme: klarere Navigation, transparentere Profile,
+      ein vollständig neu konzipiertes Forum und ein intelligentes Matchmaking-System.
+    </p>
+
+    <div class="img-placeholder">
+      <span>Screenshot Schlüsselscreens einfügen</span>
+    </div>
+    <p class="img-caption">Schlüsselscreens: Suche (Grid & Feed), Forum, Profilansicht</p>
+
+    <div class="result-grid">
+      <div class="result-card">
+        <h4>Intelligentes Matchmaking</h4>
+        <p>Best-Match-Prozent zeigt, wie gut ein Profil zu den eigenen Filterkriterien passt. Suche in Grid-, Feed- und Kartenansicht.</p>
+      </div>
+      <div class="result-card">
+        <h4>Vertrauensbildende Profile</h4>
+        <p>Bildergalerie, Erfahrungsberichte anderer Nutzer:innen und detaillierte Angaben zu Mensch und Hund schaffen Transparenz.</p>
+      </div>
+      <div class="result-card">
+        <h4>Neues Community-Forum</h4>
+        <p>Zweigeteilt in Mitteilungen (Ich suche / Ich biete) und Fragen mit thematischen Kategorien wie Pflege, Training und Reisen.</p>
+      </div>
+      <div class="result-card">
+        <h4>Reduzierte Navigation</h4>
+        <p>Von überladener Leiste zu vier klaren Bereichen. Kognitive Last reduziert, Orientierung deutlich verbessert.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEARNINGS -->
+  <div class="cs-section">
+    <p class="section-label">Learnings</p>
+    <h2 class="section-heading">Was ich mitgenommen habe</h2>
+    <p class="section-text">
+      Dieses Projekt hat gezeigt, wie wichtig es ist, Designentscheidungen konsequent aus Nutzerperspektive zu treffen.
+      Die Personas halfen uns immer wieder, uns in die Nutzenden hineinzuversetzen –
+      besonders wenn wir uns in Details verloren haben.
+    </p>
+    <p class="section-text">
+      Der Prozess von ersten Designvarianten über das Fokussieren auf ein spielerisches Prinzip bis zum
+      finalen 3D-Iconset hat mir gezeigt, dass gutes Design Iteration braucht –
+      und dass es sich lohnt, einen Schritt zurückzutreten und neu anzusetzen.
+    </p>
+  </div>
+
+  <!-- NEXT -->
+  <div class="next-project">
+    <div>
+      <p class="next-label">Nächstes Projekt</p>
+      <a class="next-title" href="#">Eigene App →</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span class="footer-left">© 2025 Marian · HfG Schwäbisch Gmünd</span>
+  <div class="footer-links">
+    <a href="index.html">Zurück zum Portfolio</a>
+    <a href="mailto:deine@email.de">Kontakt</a>
+  </div>
+</footer>
+
+</body>
+</html>

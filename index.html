@@ -184,6 +184,9 @@
       cursor: default;
     }
 
+    a.project-item { cursor: pointer; }
+    a.project-item:hover .project-title { opacity: 0.6; }
+
     .project-item:first-child { border-top: 1px solid var(--border); }
 
     .project-num {
@@ -511,7 +514,7 @@
 
       <div class="project-list">
 
-        <div class="project-item">
+        <a class="project-item" href="hundelieb.html">
           <span class="project-num">01</span>
           <div class="project-body">
             <h2 class="project-title">App Redesign</h2>
@@ -531,7 +534,7 @@
             </div>
           </div>
           <span class="project-year">2024</span>
-        </div>
+        </a>
 
         <div class="project-item">
           <span class="project-num">02</span>
