@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marian – UX/UI Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F6F3;
+      --surface: #FFFFFF;
+      --text: #1A1A18;
+      --text-muted: #6B6B66;
+      --text-faint: #A8A8A2;
+      --accent: #1A1A18;
+      --border: rgba(26,26,24,0.10);
+      --border-strong: rgba(26,26,24,0.18);
+      --tag-bg: rgba(26,26,24,0.06);
+      --radius: 3px;
+      --radius-lg: 6px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(247,246,243,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── LAYOUT ──────────────────────────────────────── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    section { padding: 96px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    /* ── HERO ────────────────────────────────────────── */
+    #hero {
+      padding-top: 160px;
+      padding-bottom: 96px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .hero-heading {
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 24px;
+      max-width: 640px;
+    }
+
+    .hero-heading em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .hero-cta:hover { opacity: 0.5; }
+
+    /* ── SECTION HEADER ──────────────────────────────── */
+    .sec-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+
+    .sec-title {
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .sec-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+
+    /* ── PROJECTS ────────────────────────────────────── */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 0 28px;
+      align-items: start;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+      cursor: default;
+    }
+
+    .project-item:first-child { border-top: 1px solid var(--border); }
+
+    .project-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--text-faint);
+      padding-top: 3px;
+    }
+
+    .project-body {}
+
+    .project-title {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+      max-width: 480px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      padding: 3px 8px;
+      border-radius: var(--radius);
+      background: var(--tag-bg);
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .project-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-faint);
+      padding-top: 4px;
+      white-space: nowrap;
+    }
+
+    /* ── THUMBNAIL PLACEHOLDER ───────────────────────── */
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      grid-column: 2;
+    }
+
+    .thumb-placeholder {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-faint);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ABOUT ────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .about-name {
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .about-role {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+    }
+
+    .about-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .skills-title {
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 16px;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-item {
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      padding: 6px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      background: var(--surface);
+    }
+
+    /* ── CONTACT ──────────────────────────────────────── */
+    .contact-wrap {
+      max-width: 520px;
+    }
+
+    .contact-intro {
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .contact-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--text);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      margin-top: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--bg);
+      background: var(--text);
+      border: none;
+      border-radius: var(--radius);
+      padding: 11px 24px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .form-submit:hover { opacity: 0.7; }
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--text-faint);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-faint);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    /* ── FADE-IN ANIMATION ───────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ── FORM SUCCESS ─────────────────────────────────── */
+    .form-success {
+      display: none;
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 12px 0;
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────── */
+    @media (max-width: 640px) {
+      nav, main, footer { padding-left: 24px; padding-right: 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .project-item { grid-template-columns: 40px 1fr; }
+      .project-year { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#">marian</a>
+    <ul class="nav-links">
+      <li><a href="#projekte">Projekte</a></li>
+      <li><a href="#ueber">Über mich</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero">
+      <p class="hero-eyebrow fade-in">UX / UI Design · Interaktionsgestaltung</p>
+      <h1 class="hero-heading fade-in delay-1">
+        Hi, ich bin Marian –<br>
+        ich gestalte <em>bedeutsame<br>digitale Erlebnisse.</em>
+      </h1>
+      <p class="hero-sub fade-in delay-2">
+        4. Semester Interaktionsgestaltung an der HfG Schwäbisch Gmünd.
+        Ich verbinde nutzerzentriertes Denken mit gestalterischer Präzision –
+        von der ersten Skizze bis zum fertigen Prototypen.
+      </p>
+      <a class="hero-cta fade-in delay-3" href="#projekte">
+        Projekte ansehen →
+      </a>
+    </section>
+
+    <!-- PROJEKTE -->
+    <section id="projekte">
+      <div class="sec-header">
+        <span class="sec-title">Ausgewählte Projekte</span>
+        <span class="sec-count">04</span>
+      </div>
+
+      <div class="project-list">
+
+        <div class="project-item">
+          <span class="project-num">01</span>
+          <div class="project-body">
+            <h2 class="project-title">App Redesign</h2>
+            <p class="project-desc">
+              Analyse und Neugestaltung einer bestehenden App. Schwerpunkt auf
+              Usability-Evaluation, nutzerzentrierter Überarbeitung der Navigation
+              und Entwicklung eines neuen visuellen Systems.
+            </p>
+            <div class="project-tags">
+              <span class="tag">UX Research</span>
+              <span class="tag">UI Design</span>
+              <span class="tag">Figma</span>
+              <span class="tag">Usability Testing</span>
+            </div>
+            <div class="project-thumb">
+              <span class="thumb-placeholder">Projektbild einfügen</span>
+            </div>
+          </div>
+          <span class="project-year">2024</span>
+        </div>
+
+        <div class="project-item">
+          <span class="project-num">02</span>
+          <div class="project-body">
+            <h2 class="project-title">Eigene App</h2>
+            <p class="project-desc">
+              Konzeption und Gestaltung einer App von Grund auf –
+              von der Problemdefinition über Nutzerforschung und Wireframes
+              bis zum interaktiven High-Fidelity-Prototyp.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Konzept</span>
+              <span class="tag">Prototyping</span>
+              <span class="tag">Figma</span>
+              <span class="tag">User Research</span>
+            </div>
+            <div class="project-thumb">
+              <span class="thumb-placeholder">Projektbild einfügen</span>
+            </div>
+          </div>
+          <span class="project-year">2024</span>
+        </div>
+
+        <div class="project-item">
+          <span class="project-num">03</span>
+          <div class="project-body">
+            <h2 class="project-title">Interaktiver Ausstellungsstand</h2>
+            <p class="project-desc">
+              Gestaltung und Umsetzung einer interaktiven Ausstellungsinstallation.
+              Konzept, räumliches Design und Interaktionskonzept für ein
+              physisches Erlebnis.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Interaction Design</span>
+              <span class="tag">Spatial Design</span>
+              <span class="tag">Konzept</span>
+              <span class="tag">Prototyping</span>
+            </div>
+            <div class="project-thumb">
+              <span class="thumb-placeholder">Projektbild einfügen</span>
+            </div>
+          </div>
+          <span class="project-year">2024</span>
+        </div>
+
+        <div class="project-item">
+          <span class="project-num">04</span>
+          <div class="project-body">
+            <h2 class="project-title">Mechatronik-Prototyp</h2>
+            <p class="project-desc">
+              Entwicklung eines physischen Prototypen im Schnittfeld von Design
+              und Technik. Hardware-Aufbau, Programmierung und Gestaltung eines
+              funktionsfähigen Objekts.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Physical Prototyping</span>
+              <span class="tag">Mechatronik</span>
+              <span class="tag">Arduino</span>
+              <span class="tag">Making</span>
+            </div>
+            <div class="project-thumb">
+              <span class="thumb-placeholder">Projektbild einfügen</span>
+            </div>
+          </div>
+          <span class="project-year">2025</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ÜBER MICH -->
+    <section id="ueber">
+      <div class="sec-header">
+        <span class="sec-title">Über mich</span>
+      </div>
+      <div class="about-grid">
+        <div>
+          <div class="about-avatar">M</div>
+          <p class="about-name">Marian</p>
+          <p class="about-role">Interaktionsgestaltung, HfG Schwäbisch Gmünd</p>
+          <p class="about-text">
+            Ich studiere Interaktionsgestaltung im 4. Semester an der HfG Schwäbisch Gmünd
+            und suche ein Praktikum im Bereich UX/UI Design.
+            Mich interessiert die Schnittstelle zwischen Menschen und Technologie –
+            wie Gestaltung Erfahrungen prägt und Probleme löst.
+            Ich arbeite konzeptionell, teste früh und iteriere gerne.
+          </p>
+        </div>
+        <div>
+          <p class="skills-title">Skills</p>
+          <div class="skills-grid">
+            <span class="skill-item">Figma</span>
+            <span class="skill-item">UX Research</span>
+            <span class="skill-item">Prototyping</span>
+            <span class="skill-item">Wireframing</span>
+            <span class="skill-item">User Testing</span>
+            <span class="skill-item">HTML & CSS</span>
+            <span class="skill-item">Interaction Design</span>
+            <span class="skill-item">Arduino</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt">
+      <div class="contact-wrap">
+        <h2 class="contact-intro">Lass uns zusammenarbeiten.</h2>
+        <p class="contact-sub">
+          Ich bin auf der Suche nach einem Praktikumsplatz im UX/UI-Bereich –
+          ab [Startdatum eintragen]. Schreib mir gerne.
+        </p>
+
+        <form id="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Dein Name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">E-Mail</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="name@beispiel.de" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Nachricht</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Hallo Marian, ..." required></textarea>
+          </div>
+          <button class="form-submit" type="submit">Nachricht senden</button>
+          <p class="form-success" id="form-success">Danke – ich melde mich bald!</p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span class="footer-left">© 2025 Marian · HfG Schwäbisch Gmünd</span>
+    <div class="footer-links">
+      <a href="mailto:deine@email.de">E-Mail</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+      <a href="#">Impressum</a>
+    </div>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contact-form');
+      const success = document.getElementById('form-success');
+      const btn = form.querySelector('.form-submit');
+      btn.style.opacity = '0.4';
+      btn.disabled = true;
+      setTimeout(() => {
+        form.reset();
+        btn.style.display = 'none';
+        success.style.display = 'block';
+      }, 600);
+    }
+
+    // Intersection Observer für sanfte Einblendung der Projektzeilen
+    const items = document.querySelectorAll('.project-item');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'none';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach((item, i) => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(12px)';
+      item.style.transition = `opacity 0.5s ease ${i * 0.08}s, transform 0.5s ease ${i * 0.08}s`;
+      observer.observe(item);
+    });
+  </script>
+
+</body>
+</html>
